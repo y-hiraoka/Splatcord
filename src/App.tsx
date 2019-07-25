@@ -1,25 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import RandomMainCard from "./cards/RandomMainCard";
+import RandomSubCard from "./cards/RandomSubCard";
+import RandomSpecialCard from "./cards/RandomSpecialCard";
+import RandomMainInCategoryCard from "./cards/RandomMainInCategoryCard";
+import GreetingFromTanimotoCard from "./cards/GreetingFromTanimotoCard";
+import RandomMainWithOneChargerCard from "./cards/RandomMainWithOneChargerCard";
+import RandomMainInSpecificSubCard from "./cards/RandomMainInSpecificSubCard";
+import Grid from "@material-ui/core/Grid";
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+import { purple } from '@material-ui/core/colors';
+
+const outerTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#00e68e",
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: purple[300],
+
+    },
+  },
+});
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={outerTheme}>
+      <Grid
+        container
+        direction="column"
+        justify="space-around"
+        alignItems="center">
+        <RandomMainCard></RandomMainCard>
+        <RandomSubCard></RandomSubCard>
+        <RandomSpecialCard></RandomSpecialCard>
+        <RandomMainWithOneChargerCard></RandomMainWithOneChargerCard>
+        <RandomMainInCategoryCard></RandomMainInCategoryCard>
+        <RandomMainInSpecificSubCard></RandomMainInSpecificSubCard>
+        <GreetingFromTanimotoCard></GreetingFromTanimotoCard>
+      </Grid>
+    </ThemeProvider>
   );
 }
 
