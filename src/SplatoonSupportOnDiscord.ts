@@ -14,7 +14,7 @@ const webhookToken = "vivd_NhUbe5XrxO97dmFAOhsVMif2lB1-9IXyCuR1ot7B0JNRC4mU9slky
  */
 function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | SpecialWeapon)[]): WebhookEntity {
     const entity = new WebhookEntity(
-        "次に使うブキを選んだよ！",
+        "次に使うブキを選んだよ！\r\nhttps://stin-dev.github.io/hello-splatoon-bot/",
         "SplatoonSupport",
         "https://stin-dev.github.io/hosting/tanimoto4.jpg",
         weapons.map(value => {
