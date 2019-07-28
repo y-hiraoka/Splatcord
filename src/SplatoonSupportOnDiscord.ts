@@ -8,6 +8,11 @@ import { SpecialWeapon } from "./splatoonSupport/weapons/SpecialWeapon";
 const webhookId = "603940938620076064";
 const webhookToken = "vivd_NhUbe5XrxO97dmFAOhsVMif2lB1-9IXyCuR1ot7B0JNRC4mU9slkybderSeXztI";
 
+// テスト用
+// https://discordapp.com/api/webhooks/601012228501798913/pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX
+//const webhookId = "601012228501798913";
+//const webhookToken = "pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX";
+
 /**
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
  * @param weapons Main,Sub,SpecialWeaponクラスの配列。
@@ -38,13 +43,18 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
     return entity;
 }
 
+function send(entity: WebhookEntity): void {
+    executeWebhook(webhookId, webhookToken, entity);
+    alert("送信完了！");
+}
+
 /**
  * メインブキをランダムで4つ選択してDiscordに送信する。
  */
 export function sendMainWeapons(): void {
     const weapons = randomWeapons.randomMainWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+    send(entity);
 }
 
 /**
@@ -54,7 +64,7 @@ export function sendMainWeapons(): void {
 export function sendMainWeaponsInCategory(category: WeaponCategory): void {
     const weapons = randomWeapons.randomWeaponInCategory(category);
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 /**
@@ -63,7 +73,7 @@ export function sendMainWeaponsInCategory(category: WeaponCategory): void {
 export function sendSubWeapons(): void {
     const weapons = randomWeapons.randomSubWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 /**
@@ -72,7 +82,7 @@ export function sendSubWeapons(): void {
 export function sendSpecialWeapons(): void {
     const weapons = randomWeapons.randomSpecialWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 /**
@@ -81,7 +91,7 @@ export function sendSpecialWeapons(): void {
 export function sendMainWeaponsWithOneCharger(): void {
     const weapons = randomWeapons.randomMainWithOneCharger();
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 /**
@@ -92,7 +102,7 @@ export function sendMainWeaponsWithOneCharger(): void {
 export function sendMainInSpecificSub(subName: string): void {
     const weapons = randomWeapons.randomMainInSpecificSub(subName);
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 /**
@@ -103,7 +113,7 @@ export function sendMainInSpecificSub(subName: string): void {
 export function sendMainInSpecificSpecial(specialName: string): void {
     const weapons = randomWeapons.randomMainInSpecificSpecial(specialName);
     const entity = createWebhookEntityfromWeapons(weapons);
-    executeWebhook(webhookId, webhookToken, entity);
+   send(entity);
 }
 
 export function sendGreetingfromTanimoto(): void {
@@ -126,7 +136,7 @@ export function sendGreetingfromTanimoto(): void {
         )],
     );
 
-    executeWebhook(webhookId, webhookToken, entity);
+    send(entity);
 }
 
 function getAge(year: number, month: number, day: number): number {
