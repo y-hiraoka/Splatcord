@@ -1,16 +1,15 @@
-import { makeStyles, createStyles } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core";
 
-const cardStyles = makeStyles(
+const cardStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
-            maxWidth: 300,
-            margin: 15,
+            margin: theme.spacing(2),
         },
         buttonRight: {
             marginLeft: "auto",
         },
         pos: {
-          marginBottom: 12,
+            marginBottom: 12,
         },
     }),
 );

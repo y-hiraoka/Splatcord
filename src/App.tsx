@@ -30,16 +30,17 @@ const App: React.FC = () => {
     <ThemeProvider theme={outerTheme}>
       <Grid
         container
-        direction="column"
+        direction="row"
         justify="space-around"
-        alignItems="center">
-        <RandomMainCard></RandomMainCard>
-        <RandomSubCard></RandomSubCard>
-        <RandomSpecialCard></RandomSpecialCard>
-        <RandomMainWithOneChargerCard></RandomMainWithOneChargerCard>
-        <RandomMainInCategoryCard></RandomMainInCategoryCard>
-        <RandomMainInSpecificSubCard></RandomMainInSpecificSubCard>
-        <GreetingFromTanimotoCard></GreetingFromTanimotoCard>
+        alignItems="flex-start"
+        spacing={1}>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomSubCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomSpecialCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainWithOneChargerCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainInCategoryCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainInSpecificSubCard /></Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}><GreetingFromTanimotoCard /></Grid>
       </Grid>
     </ThemeProvider>
   );
