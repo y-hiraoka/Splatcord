@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import cardStyles from "./CardStyles";
-import { sendSpecialWeapons } from '../SplatoonSupportOnDiscord';
+import { sendSpecialWeapons } from '../logic/SplatoonSupportOnDiscord';
 
 export default function SimpleCard() {
   const classes = cardStyles();

@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { sendMainWeaponsInCategory } from '../SplatoonSupportOnDiscord';
+import { sendMainWeaponsInCategory } from '../logic/SplatoonSupportOnDiscord';
 import { InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import cardStyles from "./CardStyles";
 import { WeaponCategory } from '../splatoonSupport/weapons/MainWeapon';

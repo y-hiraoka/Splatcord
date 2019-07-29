@@ -1,9 +1,9 @@
-import * as randomWeapons from "./splatoonSupport/randomWeapons";
-import executeWebhook from "./discordAccess/Webhook";
-import WebhookEntity, * as we from "./discordAccess/WebhookEntity";
-import { MainWeapon, WeaponCategory } from "./splatoonSupport/weapons/MainWeapon";
-import { SubWeapon } from "./splatoonSupport/weapons/SubWeapon";
-import { SpecialWeapon } from "./splatoonSupport/weapons/SpecialWeapon";
+import * as randomWeapons from "../splatoonSupport/randomWeapons";
+import executeWebhook from "../discordAccess/Webhook";
+import WebhookEntity, * as we from "../discordAccess/WebhookEntity";
+import { MainWeapon, WeaponCategory } from "../splatoonSupport/weapons/MainWeapon";
+import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
+import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
 
 const webhookId = "603940938620076064";
 const webhookToken = "vivd_NhUbe5XrxO97dmFAOhsVMif2lB1-9IXyCuR1ot7B0JNRC4mU9slkybderSeXztI";
