@@ -43,9 +43,8 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
     return entity;
 }
 
-function send(entity: WebhookEntity): void {
-    executeWebhook(webhookId, webhookToken, entity);
-    alert("送信完了！");
+async function send(entity: WebhookEntity): Promise<void> {
+    await executeWebhook(webhookId, webhookToken, entity);
 }
 
 /**

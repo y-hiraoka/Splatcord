@@ -2,10 +2,10 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { sendMainWeapons } from '../logic/SplatoonSupportOnDiscord';
 import cardStyles from "./CardStyles";
+import OpenSnackbarButton from '../components/OpenSnackbarButton';
 
 export default function SimpleCard() {
   const classes = cardStyles();
@@ -22,12 +22,14 @@ export default function SimpleCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={classes.buttonRight}
-          variant="contained"
+        <OpenSnackbarButton className={classes.buttonRight}
+          variant="success"
           color="primary"
+          successMessage="送信完了！"
+          errorMessage="Error! stin_stinに知らせてください"
           onClick={sendMainWeapons}>
           Send
-        </Button>
+        </OpenSnackbarButton>
       </CardActions>
     </Card>
   );

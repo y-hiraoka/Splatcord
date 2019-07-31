@@ -3,11 +3,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { sendMainInSpecificSub } from '../logic/SplatoonSupportOnDiscord';
 import { InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import cardStyles from "./CardStyles";
+import OpenSnackbarButton from '../components/OpenSnackbarButton';
 
 
 const selectStyles = makeStyles((theme: Theme) =>
@@ -86,12 +86,14 @@ export default function SimpleCard() {
             </Select>
           </FormControl>
         </form>
-        <Button className={cardClasses.buttonRight}
-          variant="contained"
+        <OpenSnackbarButton className={cardClasses.buttonRight}
+          variant="success"
           color="primary"
+          successMessage="送信完了！"
+          errorMessage="Error! stin_stinに知らせてください"
           onClick={buttonOnClick}>
           Send
-        </Button>
+        </OpenSnackbarButton>
       </CardActions>
     </Card>
   );

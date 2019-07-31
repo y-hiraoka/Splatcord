@@ -3,12 +3,12 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { sendGreetingfromTanimoto } from '../logic/SplatoonSupportOnDiscord';
 import { CardMedia } from '@material-ui/core';
 import imgTanimoto from "../image/tanimoto6.jpg";
 import cardStyles from "./CardStyles";
+import OpenSnackbarButton from '../components/OpenSnackbarButton';
 
 const useStyles = makeStyles(
   createStyles({
@@ -38,12 +38,14 @@ export default function SimpleCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button  className={cardClasses.buttonRight}
-         variant="contained"
+        <OpenSnackbarButton  className={cardClasses.buttonRight}
+          variant="success"
           color="secondary"
+          successMessage="送信完了！"
+          errorMessage="Error! stin_stinに知らせてください"
           onClick={sendGreetingfromTanimoto}>
           Send
-        </Button>
+        </OpenSnackbarButton>
       </CardActions>
     </Card>
   );
