@@ -4,14 +4,14 @@ import WebhookEntity, * as we from "../discordAccess/WebhookEntity";
 import { MainWeapon, WeaponCategory } from "../splatoonSupport/weapons/MainWeapon";
 import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
+import WebhookTokenManager from "./WebhookTokenManager";
 
-const webhookId = "603940938620076064";
-const webhookToken = "vivd_NhUbe5XrxO97dmFAOhsVMif2lB1-9IXyCuR1ot7B0JNRC4mU9slkybderSeXztI";
+const manager = WebhookTokenManager.getInstance();
 
 // テスト用
 // https://discordapp.com/api/webhooks/601012228501798913/pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX
-//const webhookId = "601012228501798913";
-//const webhookToken = "pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX";
+const webhookId = "601012228501798913";
+const webhookToken = "pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX";
 
 /**
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
@@ -44,7 +44,11 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
 }
 
 async function send(entity: WebhookEntity): Promise<void> {
-    await executeWebhook(webhookId, webhookToken, entity);
+    const token = manager.getSelectedToken();
+    
+    if(token === undefined) throw new Error("Tokenが選択されていません");
+
+    await executeWebhook(token.webhookId, token.webhookToken, entity);
 }
 
 /**

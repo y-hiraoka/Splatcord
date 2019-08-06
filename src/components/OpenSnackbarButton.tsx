@@ -23,7 +23,6 @@ interface OpenSnackbarButtonProps {
 }
 
 export default function OpenSnackbarButton(props: OpenSnackbarButtonProps) {
-  const classes = useStyles();
   const [state, setState] = React.useState<{
     open: boolean,
     variant: SnackbarProps["variant"],

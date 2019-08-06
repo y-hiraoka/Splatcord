@@ -9,13 +9,13 @@ const webhookUrl = "https://discordapp.com/api/webhooks"
  * @param webhookToken 
  * @param entity
  */
-export default function executeWebhook(
+export default async function executeWebhook(
     webhookId: string,
     webhookToken: string,
-    entity: WebhookEntity): void {
+    entity: WebhookEntity): Promise<void> {
     const body = JSON.stringify(entity);
 
-    fetch(`${webhookUrl}/${webhookId}/${webhookToken}`, {
+    await fetch(`${webhookUrl}/${webhookId}/${webhookToken}`, {
         method: "POST",
         body: body,
         headers: { "Content-Type": "application/json" }
