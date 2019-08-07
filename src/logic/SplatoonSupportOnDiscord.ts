@@ -8,11 +8,6 @@ import WebhookTokenManager from "./WebhookTokenManager";
 
 const manager = WebhookTokenManager.getInstance();
 
-// テスト用
-// https://discordapp.com/api/webhooks/601012228501798913/pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX
-const webhookId = "601012228501798913";
-const webhookToken = "pXmFunEV5aR_2XCPyaLPImpZ_xaA-47RiB92KudyGLl-QTsoCvr8nSQb7uQu2njdJ_tX";
-
 /**
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
  * @param weapons Main,Sub,SpecialWeaponクラスの配列。
