@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Splatoon Support</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='help.css'>
+</head>
+
+<body>
+    <h1 id="discordの送信先を追加する手順">Discordの送信先を追加する手順</h1>
+    <h2 id="discordでウェブフックを作成する">Discordでウェブフックを作成する</h2>
+    <p>このアプリケーションはDiscordの「ウェブフック」を利用しています。 下記のGIF画像を参考にしてウェブフックを作成してください。</p>
+    <p>ただし、ウェブフックの作成はサーバーの管理者権限が必要になります。 管理者権限を持っていないサーバーでアプリを利用したい場合はサーバーの管理者にウェブフックの作成を依頼してください。</p>
+    <p>ウェブフックの作成はPCブラウザ版かデスクトップアプリ版からのみ行うことができます。</p>
+    <p>すでにウェブフックが作成されている場合は新しく追加する必要はありません。</p>
+    <div class="figure">
+        <img src="./image/create-webhook.gif" alt="ウェブフック作成" />
+    </div>
+    <p>ウェブフックの名前は任意です。</p>
+    <p>送信先となるメッセージチャンネルも任意ですが、普段メンバー間でやり取りするチャンネルとは別で専用のチャンネルを用意することを推奨します。</p>
+    <p>ウェブフックURLをコピーしておいてください。(画面を閉じてしまってもウェブフック一覧の「編集」から同じURLを確認することができます。)</p>
+    <h2 id="アプリ側で送信先を追加する">アプリ側で送信先を追加する</h2>
+    <p>ウェブフックURLは下記のような構成になっています。</p>
+    <p>https://discordapp.com/api/webhooks/○○○○○○○/△△△△△△△△△△△△△△△△</p>
+    <p>○○○○○○○：Webhook ID △△△△△△△△△△△△△△△△：Webhook Token</p>
+    <p>URLからこの二つの値を取り出して、次のGIF画像を参考にしてアプリに送信先を追加します。</p>
+    <p>あなたがサーバーの管理者権限を持っていない場合はサーバーの管理者にウェブフックURLを教えてもらいましょう。</p>
+    <div class="figure">
+        <img src="./image/add-destination.gif" alt="送信先追加" width="60%"/>
+    </div>
+    <h2 id="enjoy-yourself">Enjoy yourself !</h2>
+    <p>あとはボタンを押せば、ウェブフック作成で指定されたチャンネルにブキの名前が表示されます。</p>
+</body>
+
+</html>

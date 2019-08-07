@@ -95,6 +95,7 @@ class SimpleExpansionPanel extends React.Component<Props, State> {
                 variant="standard"
                 fullWidth
                 onChange={onNameChange}
+                value={this.state.name}
               />
               <TextField
                 id="webhook-id"
@@ -104,6 +105,7 @@ class SimpleExpansionPanel extends React.Component<Props, State> {
                 variant="outlined"
                 fullWidth
                 onChange={onWebhookidChange}
+                value={this.state.webhookid}
               />
               <TextField
                 id="webhook-token"
@@ -113,32 +115,30 @@ class SimpleExpansionPanel extends React.Component<Props, State> {
                 variant="outlined"
                 fullWidth
                 onChange={onWebhooktokenChange}
+                value={this.state.webhooktoken}
               />
               <Link
                 component="a"
                 className={classes.link}
                 color="primary"
-                href="https://google.com"
+                href="./help.html"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 ヘルプ
             </Link>
               <TokenListContext.Consumer>
                 {tokenListConsumer => {
                   const { name, webhookid, webhooktoken } = this.state;
-                  const forceUpdate = this.forceUpdate;
-                  const setState = this.setState;
                   const handleClick = () => {
                     manager.addNewToken(name, webhookid, webhooktoken);
-
-                    this.state = {
-                      name:"",
-                      webhookid:"",
-                      webhooktoken:"",
-                    };
-                    
-                    this.forceUpdate();
                     tokenListConsumer.setTokenList(manager.getTokenList());
+
+                    this.setState({
+                      name: "",
+                      webhookid: "",
+                      webhooktoken: "",
+                    });
                   }
 
                   return (
