@@ -88,6 +88,7 @@ h2 {
     font-size: 2em;
     border-left: solid 10px #aaa;
     background-color: #eee;
+    padding: 0.5em;
 }
 
 h3 {
