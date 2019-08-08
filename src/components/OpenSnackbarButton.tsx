@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface OpenSnackbarButtonProps {
   children: React.ReactNode,
   color?: "inherit" | "primary" | "secondary" | "default",
-  onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void),
+  onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>),
   errorMessage?: string,
   infoMessage?: string,
   warnMessage?: string,
@@ -57,10 +57,10 @@ export default function OpenSnackbarButton(props: OpenSnackbarButtonProps) {
     : props.warnMessage !== undefined ? props.warnMessage : "This is a warning message!";
 
   return (
-    <div className={props.className}>
+    <React.Fragment>
       <Button
         variant="contained"
-        // className={props.className}
+        className={props.className}
         color={props.color}
         onClick={handleClick}>
         {props.children}
@@ -80,6 +80,6 @@ export default function OpenSnackbarButton(props: OpenSnackbarButtonProps) {
           message={message}
         />
       </Snackbar>
-    </div>
+    </React.Fragment>
   );
 }

@@ -9,6 +9,7 @@ import { InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import cardStyles from "./CardStyles";
 import { WeaponCategory } from '../splatoonSupport/weapons/MainWeapon';
 import OpenSnackbarButton from '../components/OpenSnackbarButton';
+import { SnackbarProps } from "../components/CustomizedSnackbar";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,6 +33,13 @@ export default function SimpleCard() {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({ category: WeaponCategory.Shooter });
+  const [state, setState] = React.useState<{
+    variant: SnackbarProps["variant"],
+    message: string,
+  }>({
+    variant: "success",
+    message: "",
+  });
 
   function handleChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
     setValues(oldValues => ({
@@ -40,9 +48,14 @@ export default function SimpleCard() {
     }));
   };
 
-  function buttonOnClick() {
-    if (values.category === -1) return;
-    sendMainWeaponsInCategory(values.category);
+  const handleClick = async () => {
+    await sendMainWeaponsInCategory(values.category).then(messages => {
+      if (messages === "success") {
+        setState({ variant: "success", message: messages });
+      } else {
+        setState({ variant: "error", message: messages });
+      }
+    });
   };
 
   return (
@@ -83,11 +96,11 @@ export default function SimpleCard() {
             </Select>
           </FormControl>
         <OpenSnackbarButton className={cardClasses.buttonRight}
-          variant="success"
+         variant={state.variant}
           color="primary"
-          successMessage="送信完了！"
-          errorMessage="Error! stin_stinに知らせてください"
-          onClick={buttonOnClick}>
+             successMessage={state.message}
+          errorMessage={state.message}
+          onClick={handleClick}>
           Send
         </OpenSnackbarButton>
       </CardActions>

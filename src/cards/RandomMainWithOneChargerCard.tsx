@@ -6,9 +6,28 @@ import Typography from '@material-ui/core/Typography';
 import { sendMainWeaponsWithOneCharger } from '../logic/SplatoonSupportOnDiscord';
 import cardStyles from "./CardStyles";
 import OpenSnackbarButton from '../components/OpenSnackbarButton';
+import { SnackbarProps } from "../components/CustomizedSnackbar";
 
 export default function SimpleCard() {
   const classes = cardStyles();
+
+  const [state, setState] = React.useState<{
+    variant: SnackbarProps["variant"],
+    message: string,
+  }>({
+    variant: "success",
+    message: "",
+  });
+
+  const handleClick = async () => {
+    await sendMainWeaponsWithOneCharger().then(messages => {
+      if (messages === "success") {
+        setState({ variant: "success", message: messages });
+      } else {
+        setState({ variant: "error", message: messages });
+      }
+    });
+  }
 
   return (
     <Card className={classes.card}>
@@ -27,11 +46,11 @@ export default function SimpleCard() {
       </CardContent>
       <CardActions>
         <OpenSnackbarButton className={classes.buttonRight}
-          variant="success"
+             variant={state.variant}
           color="primary"
-          successMessage="送信完了！"
-          errorMessage="Error! stin_stinに知らせてください"
-          onClick={sendMainWeaponsWithOneCharger}>
+          successMessage={state.message}
+          errorMessage={state.message}
+          onClick={handleClick}>
           Send
         </OpenSnackbarButton>
       </CardActions>

@@ -38,58 +38,61 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
     return entity;
 }
 
-async function send(entity: WebhookEntity): Promise<void> {
+async function send(entity: WebhookEntity): Promise<string> {
     const token = manager.getSelectedToken();
-    
-    if(token === undefined) throw new Error("Tokenが選択されていません");
 
-    await executeWebhook(token.webhookId, token.webhookToken, entity);
+    if (token === undefined) {
+        console.log("Errorを投げます");
+        throw new Error("Tokenが選択されていません");
+    }
+
+    return await executeWebhook(token.webhookId, token.webhookToken, entity);
 }
 
 /**
  * メインブキをランダムで4つ選択してDiscordに送信する。
  */
-export function sendMainWeapons(): void {
+export async function sendMainWeapons(): Promise<string> {
     const weapons = randomWeapons.randomMainWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-    send(entity);
+    return await send(entity);
 }
 
 /**
  * 指定されたブキカテゴリの中からメインブキをランダムで4つ選択して
  * Discordに送信する。
  */
-export function sendMainWeaponsInCategory(category: WeaponCategory): void {
+export async function sendMainWeaponsInCategory(category: WeaponCategory): Promise<string> {
     const weapons = randomWeapons.randomWeaponInCategory(category);
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
 /**
  * サブウェポンをランダムで4つ選択してDiscordに送信する。
  */
-export function sendSubWeapons(): void {
+export async function sendSubWeapons(): Promise<string> {
     const weapons = randomWeapons.randomSubWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
 /**
  * スペシャルウェポンをランダムで4つ選択してDiscordに送信する。
  */
-export function sendSpecialWeapons(): void {
+export async function sendSpecialWeapons(): Promise<string> {
     const weapons = randomWeapons.randomSpecialWeapon();
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
 /**
  * チャージャー系から1つ、それ以外から3つランダムに選択してDiscordに送信する。
  */
-export function sendMainWeaponsWithOneCharger(): void {
+export async function sendMainWeaponsWithOneCharger(): Promise<string> {
     const weapons = randomWeapons.randomMainWithOneCharger();
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
 /**
@@ -97,10 +100,10 @@ export function sendMainWeaponsWithOneCharger(): void {
  * 4つ選択してDiscordに送信する
  * @param subName サブウェポンの名称
  */
-export function sendMainInSpecificSub(subName: string): void {
+export async function sendMainInSpecificSub(subName: string): Promise<string> {
     const weapons = randomWeapons.randomMainInSpecificSub(subName);
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
 /**
@@ -108,13 +111,13 @@ export function sendMainInSpecificSub(subName: string): void {
  * 4つ選択してDiscordに送信する
  * @param specialName スペシャルウェポンの名称
  */
-export function sendMainInSpecificSpecial(specialName: string): void {
+export async function sendMainInSpecificSpecial(specialName: string): Promise<string> {
     const weapons = randomWeapons.randomMainInSpecificSpecial(specialName);
     const entity = createWebhookEntityfromWeapons(weapons);
-   send(entity);
+    return await send(entity);
 }
 
-export function sendGreetingfromTanimoto(): void {
+export async function sendGreetingfromTanimoto(): Promise<string> {
     const tanimotoAge = getAge(1999, 11, 16);
     const entity = new WebhookEntity(
         "",
@@ -134,7 +137,7 @@ export function sendGreetingfromTanimoto(): void {
         )],
     );
 
-    send(entity);
+    return await send(entity);
 }
 
 function getAge(year: number, month: number, day: number): number {

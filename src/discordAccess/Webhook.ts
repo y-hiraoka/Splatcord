@@ -12,15 +12,18 @@ const webhookUrl = "https://discordapp.com/api/webhooks"
 export default async function executeWebhook(
     webhookId: string,
     webhookToken: string,
-    entity: WebhookEntity): Promise<void> {
+    entity: WebhookEntity): Promise<string> {
     const body = JSON.stringify(entity);
 
-    await fetch(`${webhookUrl}/${webhookId}/${webhookToken}`, {
+    return await fetch(`${webhookUrl}/${webhookId}/${webhookToken}`, {
         method: "POST",
         body: body,
         headers: { "Content-Type": "application/json" }
-    }).then(response => response.text())
-        .then(text => {
-            console.log(text);
-        });
+    }).then(response => {
+        if (response.ok) { return "success"; }
+        else { return "WebhookIdまたはWebhookTokenが間違っています"}
+    }).then(text => {
+        console.log(text);
+        return text;
+    });
 }

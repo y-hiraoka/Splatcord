@@ -9,6 +9,7 @@ import { CardMedia } from '@material-ui/core';
 import imgTanimoto from "../image/tanimoto6.jpg";
 import cardStyles from "./CardStyles";
 import OpenSnackbarButton from '../components/OpenSnackbarButton';
+import { SnackbarProps } from "../components/CustomizedSnackbar";
 
 const useStyles = makeStyles(
   createStyles({
@@ -21,6 +22,23 @@ const useStyles = makeStyles(
 export default function SimpleCard() {
   const cardClasses = cardStyles();
   const mediaClass = useStyles();
+  const [state, setState] = React.useState<{
+    variant: SnackbarProps["variant"],
+    message: string,
+  }>({
+    variant: "success",
+    message: "",
+  });
+
+  const handleClick = async () => {
+    await sendGreetingfromTanimoto().then(messages => {
+      if (messages === "success") {
+        setState({ variant: "success", message: messages });
+      } else {
+        setState({ variant: "error", message: messages });
+      }
+    });
+  }
 
   return (
     <Card className={cardClasses.card}>
@@ -38,12 +56,12 @@ export default function SimpleCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <OpenSnackbarButton  className={cardClasses.buttonRight}
-          variant="success"
+        <OpenSnackbarButton className={cardClasses.buttonRight}
+          variant={state.variant}
           color="secondary"
-          successMessage="送信完了！"
-          errorMessage="Error! stin_stinに知らせてください"
-          onClick={sendGreetingfromTanimoto}>
+          successMessage={state.message}
+          errorMessage={state.message}
+          onClick={handleClick}>
           Send
         </OpenSnackbarButton>
       </CardActions>
