@@ -12,6 +12,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import SelectionBar from "./components/SelectionBar";
+import AppFooter from './components/AppFooter';
 
 const outerTheme = createMuiTheme({
   palette: {
@@ -47,6 +48,7 @@ class App extends React.Component<{}, {}> {
             <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainInCategoryCard /></Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}><RandomMainInSpecificSubCard /></Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}><GreetingFromTanimotoCard /></Grid>
+            <Grid item xs={12}><AppFooter /></Grid>
           </Grid>
         </SelectionBar>
       </ThemeProvider>
