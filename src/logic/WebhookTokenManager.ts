@@ -92,7 +92,7 @@ export default class WebhookTokenManager {
         this.WriteToLocalStorage();
     }
 
-    private WriteToLocalStorage():void {
+    private WriteToLocalStorage(): void {
         localStorage.setItem(localStorageKey, JSON.stringify(this));
     }
 }
