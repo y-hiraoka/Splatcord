@@ -21,15 +21,17 @@ declare global {
 Array.prototype.atRandom = function (num: number) {
     let list = [];
 
-    for (let i = 0; i < num; i++) {
-        list.push(this[Math.floor(Math.random() * this.length)]);
+    if (this.length > 0) {
+        for (let i = 0; i < num; i++) {
+            list.push(this[Math.floor(Math.random() * this.length)]);
+        }
     }
 
     return list;
 }
 
-Array.prototype.shuffle = function() {
-    for(let i = this.length - 1; i > 0; i--) {
+Array.prototype.shuffle = function () {
+    for (let i = this.length - 1; i > 0; i--) {
         let r = Math.floor(Math.random() * (i + 1));
         let tmp = this[i];
         this[i] = this[r];
@@ -82,7 +84,7 @@ export function randomMainWithOneCharger(): MainWeapon[] {
  * 指定されたサブウェポンが搭載されたメインブキをランダムで4つ返却する
  * @param subName サブウェポンの名称
  */
-export function randomMainInSpecificSub(subName:string): MainWeapon[] {
+export function randomMainInSpecificSub(subName: string): MainWeapon[] {
     return mainWeaponList.filter(weapon => weapon.subWeapon.name === subName).atRandom(4);
 }
 
@@ -90,6 +92,6 @@ export function randomMainInSpecificSub(subName:string): MainWeapon[] {
  * 指定されたスペシャルウェポンが搭載されたメインブキをランダムで4つ返却する
  * @param specialName スペシャルウェポンの名称
  */
-export function randomMainInSpecificSpecial(specialName:string): MainWeapon[] {
+export function randomMainInSpecificSpecial(specialName: string): MainWeapon[] {
     return mainWeaponList.filter(weapon => weapon.specialWeapon.name === specialName).atRandom(4);
 }
