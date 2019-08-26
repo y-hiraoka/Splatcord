@@ -1,14 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import CustomizedSnackbar, { SnackbarProps } from "./CustomizedSnackbar";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
 
 interface OpenSnackbarButtonProps {
   children: React.ReactNode,
@@ -50,17 +43,16 @@ export default function OpenSnackbarButton(props: OpenSnackbarButtonProps) {
     setState({ open: false, variant: props.variant, });
   }
 
-  const message = 
-      state.variant === "error" ? props.errorMessage !== undefined ? props.errorMessage : "This is an error message!"
-    : state.variant === "info" ? props.infoMessage !== undefined ? props.infoMessage : "This is an information message!"
-    : state.variant === "success" ? props.successMessage !== undefined ? props.successMessage : "This is a success message!"
-    : props.warnMessage !== undefined ? props.warnMessage : "This is a warning message!";
+  const message =
+    state.variant === "error" ? props.errorMessage !== undefined ? props.errorMessage : "This is an error message!"
+      : state.variant === "info" ? props.infoMessage !== undefined ? props.infoMessage : "This is an information message!"
+        : state.variant === "success" ? props.successMessage !== undefined ? props.successMessage : "This is a success message!"
+          : props.warnMessage !== undefined ? props.warnMessage : "This is a warning message!";
 
   return (
-    <React.Fragment>
+    <div className={props.className}>
       <Button
         variant="contained"
-        className={props.className}
         color={props.color}
         onClick={handleClick}>
         {props.children}
@@ -80,6 +72,6 @@ export default function OpenSnackbarButton(props: OpenSnackbarButtonProps) {
           message={message}
         />
       </Snackbar>
-    </React.Fragment>
+    </div>
   );
 }
