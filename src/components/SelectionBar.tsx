@@ -13,7 +13,7 @@ const useStyles = makeStyles(
   }),
 );
 
-export default function ButtonAppBar(props: { children: React.ReactElement }) {
+export default function SelectionBar(props: { children: React.ReactElement }) {
   const classes = useStyles();
 
   return (
