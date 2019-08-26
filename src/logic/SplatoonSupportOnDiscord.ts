@@ -1,12 +1,14 @@
 import * as randomWeapons from "../splatoonSupport/randomWeapons";
 import executeWebhook from "../discordAccess/Webhook";
 import WebhookEntity, * as we from "../discordAccess/WebhookEntity";
-import { MainWeapon, WeaponCategory } from "../splatoonSupport/weapons/MainWeapon";
+import { MainWeapon, WeaponCategory, mainWeaponListWithHeroWeapons } from "../splatoonSupport/weapons/MainWeapon";
 import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
 import WebhookTokenManager from "./WebhookTokenManager";
+import WeaponCheckedStateManager from "./WeaponCheckedStateManager";
 
-const manager = WebhookTokenManager.getInstance();
+const tokenManager = WebhookTokenManager.getInstance();
+const checkStateManager = WeaponCheckedStateManager.getInstance();
 
 /**
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
@@ -39,11 +41,10 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
 }
 
 async function send(entity: WebhookEntity): Promise<string> {
-    const token = manager.getSelectedToken();
+    const token = tokenManager.getSelectedToken();
 
     if (token === undefined) {
-        console.log("Errorを投げます");
-        throw new Error("Tokenが選択されていません");
+        return "Tokenが選択されていません";
     }
 
     return await executeWebhook(token.webhookId, token.webhookToken, entity);
@@ -114,6 +115,13 @@ export async function sendMainInSpecificSub(subName: string): Promise<string> {
 export async function sendMainInSpecificSpecial(specialName: string): Promise<string> {
     const weapons = randomWeapons.randomMainInSpecificSpecial(specialName);
     const entity = createWebhookEntityfromWeapons(weapons);
+    return await send(entity);
+}
+
+export async function sendMainInSelectableAll(): Promise<string> {
+    const checkedState = checkStateManager.getCheckedWeaponNames();
+    const checkedWeapons = mainWeaponListWithHeroWeapons.filter(w => checkedState.includes(w.name)).atRandom(4);
+    const entity = createWebhookEntityfromWeapons(checkedWeapons);
     return await send(entity);
 }
 
