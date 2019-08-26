@@ -48,10 +48,6 @@ export default function SimpleCard() {
     }));
   };
 
-  function buttonOnClick() {
-    sendMainInSpecificSub(values.subWeaponName);
-  };
-
   const handleClick = async () => {
     await sendMainInSpecificSub(values.subWeaponName).then(messages => {
       if (messages === "success") {
