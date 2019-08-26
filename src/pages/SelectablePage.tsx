@@ -1,12 +1,13 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Container, Fab, FormControlLabel, Switch, List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { Container, Fab, FormControlLabel, Switch, List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, useMediaQuery } from '@material-ui/core';
 import { WeaponCategory } from '../splatoonSupport/weapons/MainWeapon';
 import SendIcon from '@material-ui/icons/Send';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import WeaponCheckedStateManager, { WeaponCheckedState } from '../logic/WeaponCheckedStateManager';
 import { sendMainInSelectableAll } from '../logic/SplatoonSupportOnDiscord';
 import SendingResultDialog from '../components/SendingResultDialog';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -21,15 +22,20 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 		},
 		fab: {
-			float: "right",
+			position: "fixed",
+			zIndex: 99,
+		},
+		fabposition_small: {
+			bottom: theme.spacing(9),
+			right: theme.spacing(2),
+		},
+		fabposition_large: {
+			bottom: theme.spacing(9),
+			right: theme.spacing(4),
 		},
 		fabContainer: {
 			width: "100%",
 			position: "fixed",
-			bottom: theme.spacing(9),
-			left: 0,
-			right: 0,
-			zIndex: 99,
 		},
 		spacing: {
 			height: theme.spacing(7),
@@ -42,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SelectablePage() {
 	const classes = useStyles();
+	const theme = useTheme();
 	const {
 		shootersState, onChangeshooter, allShootersChecked, onClickSetAllShootersChecked,
 		maneuversState, onChangemaneuver, allManeuversChecked, onClickSetAllManeuversChecked,
@@ -118,11 +125,12 @@ export default function SelectablePage() {
 
 	return (
 		<React.Fragment>
-			<Container className={classes.fabContainer}>
-				<Fab className={classes.fab} aria-label="run" color="secondary" onClick={onFabClick}>
-					<SendIcon />
-				</Fab>
-			</Container>
+			<Fab className={clsx(classes.fab, useMediaQuery(theme.breakpoints.up("sm")) ? classes.fabposition_large : classes.fabposition_small)}
+				aria-label="run"
+				color="secondary"
+				onClick={onFabClick}>
+				<SendIcon />
+			</Fab>
 			<Container className={classes.root}>
 				{buildExpansionPanel("シューター", shootersState, onChangeshooter, allShootersChecked, onClickSetAllShootersChecked)}
 				{buildExpansionPanel("マニューバー", maneuversState, onChangemaneuver, allManeuversChecked, onClickSetAllManeuversChecked)}
