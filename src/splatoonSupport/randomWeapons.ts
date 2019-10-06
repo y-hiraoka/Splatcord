@@ -1,6 +1,7 @@
 import { MainWeapon, mainWeaponList, WeaponCategory } from "./weapons/MainWeapon";
 import { subWeaponList, SubWeapon } from "./weapons/SubWeapon";
 import { SpecialWeapon, specialWeaponList } from "./weapons/SpecialWeapon";
+import { gearPowerList } from "./weapons/gearPower";
 
 declare global {
     interface Array<T> {
@@ -94,4 +95,19 @@ export function randomMainInSpecificSub(subName: string): MainWeapon[] {
  */
 export function randomMainInSpecificSpecial(specialName: string): MainWeapon[] {
     return mainWeaponList.filter(weapon => weapon.specialWeapon.name === specialName).atRandom(4);
+}
+
+/**
+ * アタマ、フク、クツのギアパワーをそれぞれランダムにひとつ返却する
+ */
+export function randomGearPower() {
+    const head = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "head").atRandom(1);
+    const clothes = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "clothes").atRandom(1);
+    const shoes = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "shoes").atRandom(1);
+
+    return {
+        head: head[0],
+        clothes: clothes[0],
+        shoes: shoes[0],
+    }
 }

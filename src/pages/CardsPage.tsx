@@ -6,6 +6,7 @@ import RandomMainInCategoryCard from "../cards/RandomMainInCategoryCard";
 import GreetingFromTanimotoCard from "../cards/GreetingFromTanimotoCard";
 import RandomMainWithOneChargerCard from "../cards/RandomMainWithOneChargerCard";
 import RandomMainInSpecificSubCard from "../cards/RandomMainInSpecificSubCard";
+import RandomGearPowerCard from "../cards/RandomGearPowerCard"
 import Grid from "@material-ui/core/Grid";
 
 export default function CardsPage() {
@@ -22,6 +23,7 @@ export default function CardsPage() {
 			<Grid item xs={12} sm={6} md={4}><RandomMainWithOneChargerCard /></Grid>
 			<Grid item xs={12} sm={6} md={4}><RandomMainInCategoryCard /></Grid>
 			<Grid item xs={12} sm={6} md={4}><RandomMainInSpecificSubCard /></Grid>
+			<Grid item xs={12} sm={6} md={4}><RandomGearPowerCard /></Grid>
 			<Grid item xs={12} sm={6} md={4}><GreetingFromTanimotoCard /></Grid>
 		</Grid>
 	);

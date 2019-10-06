@@ -6,6 +6,8 @@ import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
 import WebhookTokenManager from "./WebhookTokenManager";
 import WeaponCheckedStateManager from "./WeaponCheckedStateManager";
+import { GearPower } from "../splatoonSupport/weapons/gearPower";
+import { randomGearPower } from "../splatoonSupport/randomWeapons";
 
 const tokenManager = WebhookTokenManager.getInstance();
 const checkStateManager = WeaponCheckedStateManager.getInstance();
@@ -165,4 +167,48 @@ function getAge(year: number, month: number, day: number): number {
 
     //今年の誕生日を迎えていなければage-1を返す
     return (today < thisYearBirthday) ? age - 1 : age;
+}
+
+/**
+ * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
+ * @param weapons Main,Sub,SpecialWeaponクラスの配列。
+ */
+function createEmbedObjectfromGearPower(gear: GearPower, type: "head" | "clothes" | "shoes"): we.EmbedObject {
+    let title = "";
+    if (type === "head") title = "アタマ";
+    if (type === "clothes") title = "フク";
+    if (type === "shoes") title = "クツ";
+
+    return new we.EmbedObject(
+        title,
+        undefined,
+        gear.name,
+        undefined,
+        new Date(),
+        new we.EmbedColor(0xda, 0x81, 0xf5),
+        new we.EmbedFooter("created by @stin_stin", "https://stin-dev.github.io/hosting/tanimoto3.jpg"),
+        undefined,
+        new we.EmbedImage(gear.image_url),
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+    );
+}
+
+export async function sendGearPower(): Promise<string> {
+    const gears = randomGearPower();
+
+    const entity = new WebhookEntity(
+        "次に使うギアパワーを選んだよ！\r\nhttps://stin-dev.github.io/hello-splatoon-bot/",
+        "SplatoonSupport",
+        "https://stin-dev.github.io/hosting/tanimoto4.jpg",
+        [
+            createEmbedObjectfromGearPower(gears.head, "head"),
+            createEmbedObjectfromGearPower(gears.clothes, "clothes"),
+            createEmbedObjectfromGearPower(gears.shoes, "shoes"),
+        ]
+    );
+
+    return await send(entity);
 }
