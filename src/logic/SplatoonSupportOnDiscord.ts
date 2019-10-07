@@ -207,6 +207,15 @@ export async function sendGearPower(): Promise<string> {
             createEmbedObjectfromGearPower(gears.head, "head"),
             createEmbedObjectfromGearPower(gears.clothes, "clothes"),
             createEmbedObjectfromGearPower(gears.shoes, "shoes"),
+            new we.EmbedObject(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                new we.EmbedColor(255, 0, 0),
+                undefined,
+                new we.EmbedImage("https://stin-dev.github.io/hosting/splatoon2/gear/sayashiriho.jpg"))
         ]
     );
 
