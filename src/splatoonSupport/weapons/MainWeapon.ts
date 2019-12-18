@@ -63,7 +63,7 @@ export default class MainWeapons {
     static もみじシューター: MainWeapon = new MainWeapon("もみじシューター", SubWeapons.ロボットボム, SpecialWeapons.アメフラシ, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_11.png`);
     static プロモデラーMG: MainWeapon = new MainWeapon("プロモデラーMG", SubWeapons.キューバンボム, SpecialWeapons.カーリングボムピッチャー, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_13.png`);
     static H3リールガンチェリー: MainWeapon = new MainWeapon("H3リールガンチェリー", SubWeapons.スプラッシュシールド, SpecialWeapons.バブルランチャー, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_31.png`);
-    static _96ガロン: MainWeapon = new MainWeapon(".96ガロン", SubWeapons.スプリンクラー, SpecialWeapons.インクアーマー, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_28.png`);
+    static _96ガロン: MainWeapon = new MainWeapon(".96ガロン", SubWeapons.スプリンクラー, SpecialWeapons.インクアーマー, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_27.png`);
     static ボールドマーカー7: MainWeapon = new MainWeapon("ボールドマーカー7", SubWeapons.スプラッシュボム, SpecialWeapons.ウルトラハンコ, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_34.png`);
     static N_ZAP83: MainWeapon = new MainWeapon("N-ZAP83", SubWeapons.スプリンクラー, SpecialWeapons.アメフラシ, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_18.png`);
     static ヒーローシューターレプリカ: MainWeapon = new MainWeapon("ヒーローシューターレプリカ", SubWeapons.クイックボム, SpecialWeapons.スーパーチャクチ, WeaponCategory.Shooter, `${MainWeapons.image_url}/weapon_2.png`);
