@@ -18,8 +18,8 @@ const checkStateManager = WeaponCheckedStateManager.getInstance();
  */
 function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | SpecialWeapon)[]): WebhookEntity {
     const entity = new WebhookEntity(
-        "次に使うブキを選んだよ！\r\nhttps://stin-dev.github.io/hello-splatoon-bot/",
-        "SplatoonSupport",
+        "次に使うブキを選んだよ！\r\nhttps://splatcord.web.app/",
+        "Splatcord",
         "https://stin-dev.github.io/hosting/tanimoto4.jpg",
         weapons.map(value => {
             return new we.EmbedObject(
@@ -200,8 +200,8 @@ export async function sendGearPower(): Promise<string> {
     const gears = randomGearPower();
 
     const entity = new WebhookEntity(
-        "次に使うギアパワーを選んだよ！\r\nhttps://stin-dev.github.io/hello-splatoon-bot/",
-        "SplatoonSupport",
+        "次に使うギアパワーを選んだよ！\r\nhttps://splatcord.web.app/",
+        "Splatcord",
         "https://stin-dev.github.io/hosting/tanimoto4.jpg",
         [
             createEmbedObjectfromGearPower(gears.head, "head"),
