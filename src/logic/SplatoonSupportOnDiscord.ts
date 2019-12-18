@@ -1,6 +1,6 @@
 import * as randomWeapons from "../splatoonSupport/randomWeapons";
-import executeWebhook from "../discordAccess/Webhook";
-import WebhookEntity, * as we from "../discordAccess/WebhookEntity";
+import executeWebhook from "../discord/Webhook";
+import WebhookEntity, * as we from "../discord/WebhookEntity";
 import { MainWeapon, WeaponCategory, mainWeaponListWithHeroWeapons } from "../splatoonSupport/weapons/MainWeapon";
 import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
