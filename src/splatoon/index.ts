@@ -2,14 +2,4 @@ export { MainWeapon, MainWeapons, WeaponCategory, mainWeaponList, mainWeaponList
 export { SubWeapon, SubWeapons, subWeaponList } from "./SubWeapon";
 export { SpecialWeapon, SpecialWeapons, specialWeaponList } from "./SpecialWeapon";
 export { GearPower, GearPowers, gearPowerList } from "./GearPower";
-export {
-  randomGearPower,
-  randomMainInSpecificSpecial,
-  randomMainInSpecificSub,
-  randomMainWeapon,
-  randomMainWithOneCharger,
-  randomSpecialWeapon,
-  randomSubWeapon,
-  randomWeaponInCategory,
-} from "./randomWeapons";
 

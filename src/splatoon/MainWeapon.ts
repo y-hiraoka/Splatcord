@@ -164,8 +164,8 @@ export class MainWeapons {
     static バレルスピナーリミックス: MainWeapon = new MainWeapon("バレルスピナーリミックス", SubWeapons.ポイントセンサー, SpecialWeapons.ナイスダマ, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_106.png`);
     static ハイドラント: MainWeapon = new MainWeapon("ハイドラント", SubWeapons.ロボットボム, SpecialWeapons.スーパーチャクチ, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_110.png`);
     static スプラスピナー: MainWeapon = new MainWeapon("スプラスピナー", SubWeapons.クイックボム, SpecialWeapons.マルチミサイル, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_107.png`);
-    static ヒーロースピナーレプリカ: MainWeapon = new MainWeapon("ヒーロースピナーレプリカ", SubWeapons.スプリンクラー, SpecialWeapons.ハイパープレッサー, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_104.png`);
-    static クーゲルシュライバー: MainWeapon = new MainWeapon("クーゲルシュライバー", SubWeapons.ポイズンミスト, SpecialWeapons.ジェットパック, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_112.png`, true);
+    static ヒーロースピナーレプリカ: MainWeapon = new MainWeapon("ヒーロースピナーレプリカ", SubWeapons.スプリンクラー, SpecialWeapons.ハイパープレッサー, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_104.png`, true);
+    static クーゲルシュライバー: MainWeapon = new MainWeapon("クーゲルシュライバー", SubWeapons.ポイズンミスト, SpecialWeapons.ジェットパック, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_112.png`);
     static ノーチラス47: MainWeapon = new MainWeapon("ノーチラス47", SubWeapons.ポイントセンサー, SpecialWeapons.イカスフィア, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_114.png`);
     static クーゲルシュライバー_ヒュー: MainWeapon = new MainWeapon("クーゲルシュライバー・ヒュー", SubWeapons.ジャンプビーコン, SpecialWeapons.アメフラシ, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_113.png`);
     static ノーチラス79: MainWeapon = new MainWeapon("ノーチラス79", SubWeapons.キューバンボム, SpecialWeapons.ジェットパック, WeaponCategory.Spinner, `${MainWeapons.imageUrl}/weapon_115.png`);

@@ -1,4 +1,16 @@
-import * as Splatoon from "../splatoon";
+import "./extensions";
+import {
+  MainWeapon,
+  SubWeapon,
+  SpecialWeapon,
+  mainWeaponListExcludingHeroWeapons,
+  WeaponCategory,
+  subWeaponList,
+  specialWeaponList,
+  mainWeaponList,
+  GearPower,
+  gearPowerList,
+} from "../splatoon";
 import { WebhookClient, WebhookExecutionObject, EmbedObject } from "../discord";
 import WebhookTokenManager from "./WebhookTokenManager";
 import WeaponCheckedStateManager from "./WeaponCheckedStateManager";
@@ -10,13 +22,13 @@ const checkStateManager = WeaponCheckedStateManager.getInstance();
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
  * @param weapons Main,Sub,SpecialWeaponクラスの配列。
  */
-function createWebhookEntityfromWeapons(weapons: (Splatoon.MainWeapon | Splatoon.SubWeapon | Splatoon.SpecialWeapon)[]): WebhookExecutionObject {
+function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | SpecialWeapon)[]): WebhookExecutionObject {
   const entity: WebhookExecutionObject = {
     content: "次に使うブキを選んだよ！\r\nhttps://splatcord.web.app/",
     username: "Splatcord",
     avatar_url: "https://stin-dev.github.io/hosting/tanimoto4.jpg",
     embeds: weapons.map<EmbedObject>(weapon => {
-      const description = (weapon instanceof Splatoon.MainWeapon)
+      const description = (weapon instanceof MainWeapon)
         ? `${weapon.SubWeapon.Name}\r\n${weapon.SpecialWeapon.Name}`
         : undefined;
 
@@ -59,7 +71,7 @@ async function send(entity: WebhookExecutionObject): Promise<string> {
  * メインブキをランダムで4つ選択してDiscordに送信する。
  */
 export async function sendMainWeapons(): Promise<string> {
-  const weapons = Splatoon.randomMainWeapon();
+  const weapons = mainWeaponListExcludingHeroWeapons.atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -68,8 +80,8 @@ export async function sendMainWeapons(): Promise<string> {
  * 指定されたブキカテゴリの中からメインブキをランダムで4つ選択して
  * Discordに送信する。
  */
-export async function sendMainWeaponsInCategory(category: Splatoon.WeaponCategory): Promise<string> {
-  const weapons = Splatoon.randomWeaponInCategory(category);
+export async function sendMainWeaponsInCategory(category: WeaponCategory): Promise<string> {
+  const weapons = mainWeaponListExcludingHeroWeapons.filter(weapon => weapon.Category === category).atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -78,7 +90,7 @@ export async function sendMainWeaponsInCategory(category: Splatoon.WeaponCategor
  * サブウェポンをランダムで4つ選択してDiscordに送信する。
  */
 export async function sendSubWeapons(): Promise<string> {
-  const weapons = Splatoon.randomSubWeapon();
+  const weapons = subWeaponList.atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -87,7 +99,7 @@ export async function sendSubWeapons(): Promise<string> {
  * スペシャルウェポンをランダムで4つ選択してDiscordに送信する。
  */
 export async function sendSpecialWeapons(): Promise<string> {
-  const weapons = Splatoon.randomSpecialWeapon();
+  const weapons = specialWeaponList.atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -96,7 +108,9 @@ export async function sendSpecialWeapons(): Promise<string> {
  * チャージャー系から1つ、それ以外から3つランダムに選択してDiscordに送信する。
  */
 export async function sendMainWeaponsWithOneCharger(): Promise<string> {
-  const weapons = Splatoon.randomMainWithOneCharger();
+  const notChargers = mainWeaponListExcludingHeroWeapons.filter(weapon => weapon.Category !== WeaponCategory.Charger).atRandom(3);
+  const charger = mainWeaponListExcludingHeroWeapons.filter(weapon => weapon.Category === WeaponCategory.Charger).atRandom(1);
+  const weapons = notChargers.concat(charger).shuffle();
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -107,7 +121,7 @@ export async function sendMainWeaponsWithOneCharger(): Promise<string> {
  * @param subName サブウェポンの名称
  */
 export async function sendMainInSpecificSub(subName: string): Promise<string> {
-  const weapons = Splatoon.randomMainInSpecificSub(subName);
+  const weapons = mainWeaponListExcludingHeroWeapons.filter(weapon => weapon.SubWeapon.Name === subName).atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
@@ -118,14 +132,14 @@ export async function sendMainInSpecificSub(subName: string): Promise<string> {
  * @param specialName スペシャルウェポンの名称
  */
 export async function sendMainInSpecificSpecial(specialName: string): Promise<string> {
-  const weapons = Splatoon.randomMainInSpecificSpecial(specialName);
+  const weapons = mainWeaponListExcludingHeroWeapons.filter(weapon => weapon.SpecialWeapon.Name === specialName).atRandom(4);
   const entity = createWebhookEntityfromWeapons(weapons);
   return await send(entity);
 }
 
 export async function sendMainInSelectableAll(): Promise<string> {
   const checkedState = checkStateManager.getCheckedWeaponNames();
-  const checkedWeapons = Splatoon.mainWeaponList.filter(w => checkedState.includes(w.Name)).atRandom(4);
+  const checkedWeapons = mainWeaponList.filter(w => checkedState.includes(w.Name)).atRandom(4);
   const entity = createWebhookEntityfromWeapons(checkedWeapons);
   return await send(entity);
 }
@@ -175,7 +189,7 @@ function getAge(year: number, month: number, day: number): number {
  * Main,Sub,SpecialWeaponクラスからWebhookEntityを生成する。
  * @param weapons Main,Sub,SpecialWeaponクラスの配列。
  */
-function createEmbedObjectfromGearPower(gear: Splatoon.GearPower, type: "head" | "clothes" | "shoes"): EmbedObject {
+function createEmbedObjectfromGearPower(gear: GearPower, type: "head" | "clothes" | "shoes"): EmbedObject {
   let title = "";
   if (type === "head") title = "アタマ";
   if (type === "clothes") title = "フク";
@@ -195,16 +209,18 @@ function createEmbedObjectfromGearPower(gear: Splatoon.GearPower, type: "head" |
 }
 
 export async function sendGearPower(): Promise<string> {
-  const gears = Splatoon.randomGearPower();
+  const head = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "head").atRandom(1)[0];
+  const clothes = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "clothes").atRandom(1)[0];
+  const shoes = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "shoes").atRandom(1)[0];
 
   const entity: WebhookExecutionObject = {
     content: "次に使うギアパワーを選んだよ！\r\nhttps://splatcord.web.app/",
     username: "Splatcord",
     avatar_url: "https://stin-dev.github.io/hosting/tanimoto4.jpg",
     embeds: [
-      createEmbedObjectfromGearPower(gears.head, "head"),
-      createEmbedObjectfromGearPower(gears.clothes, "clothes"),
-      createEmbedObjectfromGearPower(gears.shoes, "shoes"),
+      createEmbedObjectfromGearPower(head, "head"),
+      createEmbedObjectfromGearPower(clothes, "clothes"),
+      createEmbedObjectfromGearPower(shoes, "shoes"),
     ],
   };
 
