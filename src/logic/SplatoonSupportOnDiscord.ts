@@ -1,6 +1,6 @@
 import * as randomWeapons from "../splatoonSupport/randomWeapons";
 import { WebhookClient, WebhookExecutionObject, EmbedObject } from "../discord";
-import { MainWeapon, WeaponCategory, mainWeaponListWithHeroWeapons } from "../splatoonSupport/weapons/MainWeapon";
+import { MainWeapon, WeaponCategory, mainWeaponList } from "../splatoonSupport/weapons/MainWeapon";
 import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
 import WebhookTokenManager from "./WebhookTokenManager";
@@ -22,11 +22,11 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
     avatar_url: "https://stin-dev.github.io/hosting/tanimoto4.jpg",
     embeds: weapons.map<EmbedObject>(weapon => {
       const description = (weapon instanceof MainWeapon)
-        ? `${weapon.subWeapon.name}\r\n${weapon.specialWeapon.name}`
+        ? `${weapon.SubWeapon.Name}\r\n${weapon.SpecialWeapon.Name}`
         : undefined;
 
       return {
-        title: weapon.name,
+        title: weapon.Name,
         description: description,
         timestamp: new Date(),
         color: 14320117,
@@ -34,7 +34,7 @@ function createWebhookEntityfromWeapons(weapons: (MainWeapon | SubWeapon | Speci
           text: "created by @stin_factory",
           icon_url: "https://stin-dev.github.io/hosting/tanimoto3.jpg",
         },
-        thumbnail: { url: weapon.image_url },
+        thumbnail: { url: weapon.ImageUrl },
       };
     }),
   };
@@ -130,7 +130,7 @@ export async function sendMainInSpecificSpecial(specialName: string): Promise<st
 
 export async function sendMainInSelectableAll(): Promise<string> {
   const checkedState = checkStateManager.getCheckedWeaponNames();
-  const checkedWeapons = mainWeaponListWithHeroWeapons.filter(w => checkedState.includes(w.name)).atRandom(4);
+  const checkedWeapons = mainWeaponList.filter(w => checkedState.includes(w.Name)).atRandom(4);
   const entity = createWebhookEntityfromWeapons(checkedWeapons);
   return await send(entity);
 }
@@ -188,14 +188,14 @@ function createEmbedObjectfromGearPower(gear: GearPower, type: "head" | "clothes
 
   return {
     title: title,
-    description: gear.name,
+    description: gear.Name,
     timestamp: new Date(),
     color: 14320117,
     footer: {
       text: "created by @stin_factory",
       icon_url: "https://stin-dev.github.io/hosting/tanimoto3.jpg",
     },
-    thumbnail: { url: gear.image_url },
+    thumbnail: { url: gear.ImageUrl },
   };
 }
 

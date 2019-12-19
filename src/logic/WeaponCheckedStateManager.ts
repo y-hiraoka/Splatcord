@@ -1,4 +1,4 @@
-import { WeaponCategory, mainWeaponListWithHeroWeapons } from "../splatoonSupport/weapons/MainWeapon";
+import { WeaponCategory, mainWeaponList } from "../splatoonSupport/weapons/MainWeapon";
 
 const localStorageKey = "SelectedPageState";
 
@@ -33,40 +33,40 @@ export default class WeaponCheckedStateManager {
 		const jsonOnStorage = localStorage.getItem(localStorageKey);
 
 		if (jsonOnStorage === null) {
-			this._shooterStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Shooter).map(w => ({ [w.name]: true }))
+			this._shooterStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Shooter).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._maneuverStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Maneuver).map(w => ({ [w.name]: true }))
+			this._maneuverStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Maneuver).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._chargerStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Charger).map(w => ({ [w.name]: true }))
+			this._chargerStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Charger).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._blasterStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Blaster).map(w => ({ [w.name]: true }))
+			this._blasterStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Blaster).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._rollerStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Roller).map(w => ({ [w.name]: true }))
+			this._rollerStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Roller).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._brushStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Brush).map(w => ({ [w.name]: true }))
+			this._brushStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Brush).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._slosherStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Slosher).map(w => ({ [w.name]: true }))
+			this._slosherStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Slosher).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._spinnerStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Spinner).map(w => ({ [w.name]: true }))
+			this._spinnerStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Spinner).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 
-			this._shelterStates = mainWeaponListWithHeroWeapons
-				.filter(w => w.category === WeaponCategory.Shelter).map(w => ({ [w.name]: true }))
+			this._shelterStates = mainWeaponList
+				.filter(w => w.Category === WeaponCategory.Shelter).map(w => ({ [w.Name]: true }))
 				.reduce((prev, curr) => ({ ...prev, ...curr }));
 		}
 		else {
