@@ -37,7 +37,7 @@ export class WebhookClient {
       const response = await axios.get<Webhook>(`${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`);
       return response.data;
     } catch (error) {
-      if (error.isAxiosError) throw this.errorHandler(error);
+      if (error.isAxiosError) throw errorHandler(error);
       else throw error;
     }
   }
@@ -57,7 +57,7 @@ export class WebhookClient {
 
       return response.data;
     } catch (error) {
-      if (error.isAxiosError) throw this.errorHandler(error);
+      if (error.isAxiosError) throw errorHandler(error);
       else throw error;
     }
   }
@@ -69,13 +69,11 @@ export class WebhookClient {
    */
   deleteWebhook = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`,
       );
-
-      console.log(response);
     } catch (error) {
-      if (error.isAxiosError) throw this.errorHandler(error);
+      if (error.isAxiosError) throw errorHandler(error);
       else throw error;
     }
   }
@@ -85,38 +83,36 @@ export class WebhookClient {
    */
   executeWebhook = async (data: WebhookExecutionObject): Promise<void> => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`,
         data, { headers: { "Content-Type": "application/json" } });
-
-      console.log(response);
     } catch (error) {
-      if (error.isAxiosError) throw this.errorHandler(error);
+      if (error.isAxiosError) throw errorHandler(error);
       else throw error;
     }
   }
+}
 
-  private errorHandler = (error: AxiosError): Error => {
-    if (!error.response) throw error;
+const errorHandler = (error: AxiosError): Error => {
+  if (!error.response) throw error;
 
-    switch (error.response.status) {
-      case HttpResponseCodes.BAD_REQUEST:
-        throw new BadRequestError();
+  switch (error.response.status) {
+    case HttpResponseCodes.BAD_REQUEST:
+      throw new BadRequestError();
 
-      case HttpResponseCodes.UNAUTHORIZED:
-        throw new UnauthorizedError();
+    case HttpResponseCodes.UNAUTHORIZED:
+      throw new UnauthorizedError();
 
-      case HttpResponseCodes.FORBIDDEN:
-        throw new ForbiddenError();
+    case HttpResponseCodes.FORBIDDEN:
+      throw new ForbiddenError();
 
-      case HttpResponseCodes.NOT_FOUND:
-        throw new NotFoundError();
+    case HttpResponseCodes.NOT_FOUND:
+      throw new NotFoundError();
 
-      case HttpResponseCodes.TOO_MANY_REQUESTS:
-        throw new TooManyRequestsError();
+    case HttpResponseCodes.TOO_MANY_REQUESTS:
+      throw new TooManyRequestsError();
 
-      default:
-        throw error;
-    }
+    default:
+      throw error;
   }
 }
