@@ -5,7 +5,7 @@ import { SubWeapon } from "../splatoonSupport/weapons/SubWeapon";
 import { SpecialWeapon } from "../splatoonSupport/weapons/SpecialWeapon";
 import WebhookTokenManager from "./WebhookTokenManager";
 import WeaponCheckedStateManager from "./WeaponCheckedStateManager";
-import { GearPower } from "../splatoonSupport/weapons/gearPower";
+import { GearPower } from "../splatoonSupport/weapons/GearPower";
 import { randomGearPower } from "../splatoonSupport/randomWeapons";
 
 const tokenManager = WebhookTokenManager.getInstance();
