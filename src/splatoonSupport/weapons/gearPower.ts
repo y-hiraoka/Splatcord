@@ -1,15 +1,15 @@
-type installType  = "head" | "clothes" | "shoes" | "all";
+type partType = "head" | "clothes" | "shoes" | "all";
 
 export class GearPower {
-	name: string;
-	installedTo: installType;
-	image_url?: string;
+	constructor(
+		private name: string,
+		private part: partType,
+		private imageUrl?: string,
+	) { }
 
-	constructor(name: string, installedTo: installType, image_url?: string) {
-		this.name = name;
-		this.installedTo = installedTo;
-		this.image_url = image_url;
-	}
+	get Name() { return this.name; }
+	get Part() { return this.part; }
+	get ImageUrl() { return this.imageUrl; }
 }
 
 export class GearPowers {

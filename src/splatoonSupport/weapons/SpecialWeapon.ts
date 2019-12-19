@@ -1,21 +1,19 @@
-/**
- * スペシャルウェポンクラス。
- */
+/** Special Weapon class. */
 export class SpecialWeapon {
-    name: string;
-    image_url?: string;
+    constructor(
+        private name: string,
+        private imageUrl?: string,
+    ) { }
 
-    constructor(name: string, image_url?:string) {
-        this.name = name;
-        this.image_url = image_url;
-    }
+    get Name() { return this.name; }
+    get ImageUrl() { return this.imageUrl; }
 
-    public toString():string {
+    public toString(): string {
         return `スペシャルウェポン：${this.name}`;
     }
 }
 
-export default class SpecialWeapons {
+export class SpecialWeapons {
     static ジェットパック: SpecialWeapon = new SpecialWeapon("ジェットパック");
     static スーパーチャクチ: SpecialWeapon = new SpecialWeapon("スーパーチャクチ");
     static マルチミサイル: SpecialWeapon = new SpecialWeapon("マルチミサイル");

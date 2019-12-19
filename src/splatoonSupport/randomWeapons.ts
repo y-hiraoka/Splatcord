@@ -16,7 +16,7 @@ export function randomMainWeapon(): MainWeapon[] {
  * @param category カテゴリ
  */
 export function randomWeaponInCategory(category: WeaponCategory): MainWeapon[] {
-  return mainWeaponList.filter(weapon => weapon.category === category).atRandom(4);
+  return mainWeaponList.filter(weapon => weapon.Category === category).atRandom(4);
 }
 
 /**
@@ -37,8 +37,8 @@ export function randomSpecialWeapon(): SpecialWeapon[] {
  *  チャージャー系のMainWeaponを1つ、それ以外のMainWeaponを3つ返却する
  */
 export function randomMainWithOneCharger(): MainWeapon[] {
-  let notChargers = mainWeaponList.filter(weapon => weapon.category !== WeaponCategory.Charger).atRandom(3);
-  let charger = mainWeaponList.filter(weapon => weapon.category === WeaponCategory.Charger).atRandom(1);
+  let notChargers = mainWeaponList.filter(weapon => weapon.Category !== WeaponCategory.Charger).atRandom(3);
+  let charger = mainWeaponList.filter(weapon => weapon.Category === WeaponCategory.Charger).atRandom(1);
   let result = notChargers.concat(charger);
   result.shuffle();
   return result;
@@ -49,7 +49,7 @@ export function randomMainWithOneCharger(): MainWeapon[] {
  * @param subName サブウェポンの名称
  */
 export function randomMainInSpecificSub(subName: string): MainWeapon[] {
-  return mainWeaponList.filter(weapon => weapon.subWeapon.name === subName).atRandom(4);
+  return mainWeaponList.filter(weapon => weapon.SubWeapon.Name === subName).atRandom(4);
 }
 
 /**
@@ -57,16 +57,16 @@ export function randomMainInSpecificSub(subName: string): MainWeapon[] {
  * @param specialName スペシャルウェポンの名称
  */
 export function randomMainInSpecificSpecial(specialName: string): MainWeapon[] {
-  return mainWeaponList.filter(weapon => weapon.specialWeapon.name === specialName).atRandom(4);
+  return mainWeaponList.filter(weapon => weapon.SpecialWeapon.Name === specialName).atRandom(4);
 }
 
 /**
  * アタマ、フク、クツのギアパワーをそれぞれランダムにひとつ返却する
  */
 export function randomGearPower() {
-  const head = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "head").atRandom(1);
-  const clothes = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "clothes").atRandom(1);
-  const shoes = gearPowerList.filter(gear => gear.installedTo === "all" || gear.installedTo === "shoes").atRandom(1);
+  const head = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "head").atRandom(1);
+  const clothes = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "clothes").atRandom(1);
+  const shoes = gearPowerList.filter(gear => gear.Part === "all" || gear.Part === "shoes").atRandom(1);
 
   return {
     head: head[0],

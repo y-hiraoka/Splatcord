@@ -1,21 +1,19 @@
-/**
- * サブウェポンクラス。
- */
+/** Sub Weapon class. */
 export class SubWeapon {
-    name: string;
-    image_url?: string;
+    constructor(
+        private name: string,
+        private imageUrl?: string,
+    ) { }
 
-    constructor(name: string, image_url?:string) {
-        this.name = name;
-        this.image_url = image_url;
-    }
+    get Name() { return this.name; }
+    get ImageUrl() { return this.imageUrl; }
 
     public toString(): string {
-        return `サブウェポン：${this.name}`
+        return `サブウェポン：${this.name}`;
     }
 }
 
-export default class SubWeapons {
+export class SubWeapons {
     private static image_url = "https://stin-dev.github.io/hosting/splatoon2/sub";
 
     static スプラッシュボム: SubWeapon = new SubWeapon("スプラッシュボム", `${SubWeapons.image_url}/sub_10.png`);
@@ -33,7 +31,7 @@ export default class SubWeapons {
     static トーピード: SubWeapon = new SubWeapon("トーピード", `${SubWeapons.image_url}/sub_22.png`);
 }
 
-export const subWeaponList:SubWeapon[] = [
+export const subWeaponList: SubWeapon[] = [
     SubWeapons.スプラッシュボム,
     SubWeapons.キューバンボム,
     SubWeapons.クイックボム,
