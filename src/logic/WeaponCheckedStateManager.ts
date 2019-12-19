@@ -1,4 +1,4 @@
-import { WeaponCategory, mainWeaponList } from "../splatoonSupport/weapons/MainWeapon";
+import { WeaponCategory, mainWeaponList } from "../splatoon";
 
 const localStorageKey = "SelectedPageState";
 

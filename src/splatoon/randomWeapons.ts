@@ -1,8 +1,8 @@
 import "./extensions";
-import { MainWeapon, mainWeaponList, WeaponCategory } from "./weapons/MainWeapon";
-import { subWeaponList, SubWeapon } from "./weapons/SubWeapon";
-import { SpecialWeapon, specialWeaponList } from "./weapons/SpecialWeapon";
-import { gearPowerList } from "./weapons/GearPower";
+import { MainWeapon, mainWeaponList, WeaponCategory } from "./MainWeapon";
+import { subWeaponList, SubWeapon } from "./SubWeapon";
+import { SpecialWeapon, specialWeaponList } from "./SpecialWeapon";
+import { gearPowerList } from "./GearPower";
 
 /**
  * MainWeaponインスタンスを4つランダムに返却する
