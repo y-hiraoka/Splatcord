@@ -1,12 +1,7 @@
-import { WebhookExecutionObject, Webhook, HttpResponseCodes } from ".";
-import axios, { AxiosError } from "axios";
-import {
-  UnauthorizedError,
-  NotFoundError,
-  BadRequestError,
-  ForbiddenError,
-  TooManyRequestsError,
-} from "./Error";
+import { WebhookExecutionObject, Webhook } from ".";
+import axios from "axios";
+import { errorHandler } from "./Errors";
+import { ApiEndpoint } from "./constant";
 
 /**
  * Webhooks are a low-effort way to post messages to channels in Discord.
@@ -14,7 +9,7 @@ import {
  * https://discordapp.com/developers/docs/resources/webhook
  */
 export class WebhookClient {
-  private webhookUrl = "https://discordapp.com/api/webhooks";
+  private webhookUrl = `${ApiEndpoint}/webhooks`;
 
   constructor(
     private webhookId?: string,
@@ -90,29 +85,5 @@ export class WebhookClient {
       if (error.isAxiosError) throw errorHandler(error);
       else throw error;
     }
-  }
-}
-
-const errorHandler = (error: AxiosError): Error => {
-  if (!error.response) throw error;
-
-  switch (error.response.status) {
-    case HttpResponseCodes.BAD_REQUEST:
-      throw new BadRequestError();
-
-    case HttpResponseCodes.UNAUTHORIZED:
-      throw new UnauthorizedError();
-
-    case HttpResponseCodes.FORBIDDEN:
-      throw new ForbiddenError();
-
-    case HttpResponseCodes.NOT_FOUND:
-      throw new NotFoundError();
-
-    case HttpResponseCodes.TOO_MANY_REQUESTS:
-      throw new TooManyRequestsError();
-
-    default:
-      throw error;
   }
 }

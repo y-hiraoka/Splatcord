@@ -40,6 +40,131 @@ export interface User {
   premium_type?: number,
 }
 
+export interface PartialGuild {
+  /** guild id */
+  id: string,
+
+  /** guild name (2-100 characters) */
+  name: string,
+
+  /** icon hash */
+  icon: string,
+
+  /** whether or not the user is the owner of the guild */
+  owner?: boolean,
+
+  /** total permissions for the user in the guild (does not include channel overrides) */
+  permissions?: number,
+
+  /** enabled guild features */
+  features: string[],
+}
+
+/**
+ * Guild Structure
+ * https://discordapp.com/developers/docs/resources/guild#guild-object
+ */
+export interface Guild extends PartialGuild {
+  /** splash hash */
+  splash: string | null;
+
+  /** id of owner */
+  owner_id: string;
+
+  /** voice region id for the guild */
+  region: string;
+
+  /** id of afk channel */
+  afk_channel_id: string | null;
+
+  /** afk timeout in seconds */
+  afk_timeout: number;
+
+  /** whether this guild is embeddable (e.g. widget) */
+  embed_enabled?: boolean;
+
+  /** if not null, the channel id that the widget will generate an invite to */
+  embed_channel_id?: string;
+
+  /** verification level required for the guild */
+  verification_level: number;
+
+  /** default message notifications level */
+  default_message_notifications: number;
+
+  /* explicit content filter level */
+  explicit_content_filter: number;
+
+  /* roles in the guild */
+  roles: Role[];
+
+  /* custom guild emojis */
+  emojis: Emoji[];
+
+  /* required MFA level for the guild */
+  mfa_level: number;
+
+  /* application id of the guild creator if it is bot-created */
+  application_id: string | null;
+
+  /* whether or not the server widget is enabled */
+  widget_enabled?: boolean;
+
+  /* the channel id for the server widget */
+  widget_channel_id?: string;
+
+  /* the id of the channel to which system messages are sent */
+  system_channel_id: string | null;
+
+  /* when this guild was joined at */
+  joined_at?: string;
+
+  /* whether this is considered a large guild */
+  large?: boolean;
+
+  /* whether this guild is unavailable */
+  unavailable?: boolean;
+
+  /* total number of members in this guild */
+  member_count?: number;
+
+  /* (without the guild_id key) */
+  voice_states?: any[];
+
+  /* users in the guild */
+  members?: any[];
+
+  /* channels in the guild */
+  channels?: any[];
+
+  /* presences of the users in the guild */
+  presences?: any[];
+
+  /* the maximum amount of presences for the guild (the default value, currently 5000, is in effect when null is returned) */
+  max_presences?: number | null;
+
+  /* the maximum amount of members for the guild */
+  max_members?: number;
+
+  /* the vanity url code for the guild */
+  vanity_url_code: string | null;
+
+  /* the description for the guild */
+  description: string | null;
+
+  /* banner hash */
+  banner: string | null;
+
+  /* premium tier */
+  premium_tier: number;
+
+  /* the total number of users currently boosting this server */
+  premium_subscription_count?: number;
+
+  /* the preferred locale of this guild only set if guild has the ""DISCOVERABLE"" feature, defaults to en-US */
+  preferred_locale: string;
+}
+
 /**
  * Webhook Structure
  * https://discordapp.com/developers/docs/resources/webhook#webhook-object
@@ -76,6 +201,63 @@ enum WebhookTypes {
 
   /** Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels */
   ChannelFollower = 2,
+}
+
+/**
+ * Role Structure
+ * https://discordapp.com/developers/docs/topics/permissions#role-object
+ */
+export interface Role {
+  /** role id */
+  id: string;
+
+  /** role name */
+  name: string;
+
+  /** integer representation of hexadecimal color code */
+  color: number;
+
+  /** if this role is pinned in the user listing */
+  hoist: boolean;
+
+  /** position of this role */
+  position: number;
+
+  /** permission bit set */
+  permissions: number;
+
+  /** whether this role is managed by an integration */
+  managed: boolean;
+
+  /** whether this role is mentionable */
+  mentionable: boolean;
+}
+
+/**
+ * Emoji Structure
+ * https://discordapp.com/developers/docs/resources/emoji#emoji-object
+ */
+export interface Emoji {
+  /* emoji id */
+  id: string | null;
+
+  /* emoji name */
+  name: string | null;
+
+  /* roles this emoji is whitelisted to */
+  roles?: string[];
+
+  /* user that created this emoji */
+  user?: User;
+
+  /* whether this emoji must be wrapped in colons */
+  require_colons?: boolean;
+
+  /* whether this emoji is managed */
+  managed?: boolean;
+
+  /* whether this emoji is animated */
+  animated?: boolean;
 }
 
 /**
@@ -216,6 +398,22 @@ interface EmbedField {
   inline?: boolean;
 }
 
+export interface AccessTokenResponse {
+  access_token: string;
+
+  expires_in: number;
+
+  refresh_token: string;
+
+  scope: string;
+
+  token_type: string;
+
+  guild?: Guild;
+
+  webhook?: Webhook;
+}
+
 /**
  * https://discordapp.com/developers/docs/topics/opcodes-and-status-codes#http
  */
@@ -254,12 +452,14 @@ export enum HttpResponseCodes {
   GATEWAY_UNAVAILABLE = 502,
 }
 
+export { TokenClient } from "./token";
+export { UserClient } from "./users";
 export { WebhookClient } from "./Webhook";
-
 export {
   BadRequestError,
   ForbiddenError,
   NotFoundError,
   TooManyRequestsError,
   UnauthorizedError,
-} from "./Error";
+  MethodNotAllowedError,
+} from "./Errors";
