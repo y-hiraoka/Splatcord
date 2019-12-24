@@ -2,7 +2,8 @@ import axios from "axios";
 import { ApiEndpoint } from "./constant";
 import { URLSearchParams } from "url";
 import { AccessTokenResponse } from ".";
-import { errorHandler } from "./Errors";
+import { errorHandler } from "./errors";
+import { PartialGuildImpl } from "./model";
 
 /**
  * The authorization code grant is what most developers will recognize as "standard OAuth2" 
@@ -37,11 +38,11 @@ export class TokenClient {
     try {
       const tokenResponse = await axios.post<T>(url, params,
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
-  
+
       return tokenResponse.data;
-      } catch (error) {
-        if (error.isAxiosError) throw errorHandler(error);
-        else throw error;
+    } catch (error) {
+      if (error.isAxiosError) throw errorHandler(error);
+      else throw error;
     }
   }
 
@@ -57,14 +58,18 @@ export class TokenClient {
     params.append("code", code);
     params.append("redirect_uri", this.redirectUri);
 
-    return this.post<AccessTokenResponse>(`${ApiEndpoint}/oauth2/token`, params);
+    const response = await this.post<AccessTokenResponse>(`${ApiEndpoint}/oauth2/token`, params);
+
+    if (response.guild) response.guild = new PartialGuildImpl(response.guild);
+
+    return response;
   }
 
   /**
    * Refresh user's token.
    * @param refreshToken user's refresh token
    */
-  refreshToken = async (refreshToken: string): Promise<any> => {
+  refreshToken = async (refreshToken: string): Promise<AccessTokenResponse> => {
     const params = new URLSearchParams();
     params.append("client_id", this.clientId);
     params.append("client_secret", this.clientSecret);
@@ -72,6 +77,10 @@ export class TokenClient {
     params.append("code", refreshToken);
     params.append("redirect_uri", this.redirectUri);
 
-    return this.post<AccessTokenResponse>(`${ApiEndpoint}/oauth2/token`, params);
+    const response = await this.post<AccessTokenResponse>(`${ApiEndpoint}/oauth2/token`, params);
+
+    if (response.guild) response.guild = new PartialGuildImpl(response.guild);
+
+    return response;
   }
 }

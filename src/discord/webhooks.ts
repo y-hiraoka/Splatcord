@@ -1,6 +1,6 @@
 import { WebhookExecutionObject, Webhook } from ".";
 import axios from "axios";
-import { errorHandler } from "./Errors";
+import { errorHandler } from "./errors";
 import { ApiEndpoint } from "./constant";
 
 /**
@@ -9,8 +9,6 @@ import { ApiEndpoint } from "./constant";
  * https://discordapp.com/developers/docs/resources/webhook
  */
 export class WebhookClient {
-  private webhookUrl = `${ApiEndpoint}/webhooks`;
-
   constructor(
     private webhookId?: string,
     private webhookToken?: string,
@@ -22,6 +20,8 @@ export class WebhookClient {
   get WebhookToken(): string | undefined { return this.webhookToken; }
   set WebhookToken(value: string | undefined) { this.webhookToken = value; }
 
+  private get WebhookUrl() { return `${ApiEndpoint}/webhooks/${this.webhookId}/${this.webhookToken}`}
+
   /**
    * Returns the new webhook object for the given id.
    * This call does not require authentication and returns no user in the webhook object.
@@ -29,7 +29,7 @@ export class WebhookClient {
    */
   getWebhook = async (): Promise<Webhook> => {
     try {
-      const response = await axios.get<Webhook>(`${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`);
+      const response = await axios.get<Webhook>(this.WebhookUrl);
       return response.data;
     } catch (error) {
       if (error.isAxiosError) throw errorHandler(error);
@@ -46,7 +46,7 @@ export class WebhookClient {
   modifyWebhook = async (data: { name?: string, avatar?: string }): Promise<Webhook> => {
     try {
       const response = await axios.patch<Webhook>(
-        `${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`,
+        this.WebhookUrl,
         data,
       );
 
@@ -65,7 +65,7 @@ export class WebhookClient {
   deleteWebhook = async () => {
     try {
       await axios.delete(
-        `${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`,
+        this.WebhookUrl,
       );
     } catch (error) {
       if (error.isAxiosError) throw errorHandler(error);
@@ -79,7 +79,7 @@ export class WebhookClient {
   executeWebhook = async (data: WebhookExecutionObject): Promise<void> => {
     try {
       await axios.post(
-        `${this.webhookUrl}/${this.webhookId}/${this.webhookToken}`,
+        this.WebhookUrl,
         data, { headers: { "Content-Type": "application/json" } });
     } catch (error) {
       if (error.isAxiosError) throw errorHandler(error);

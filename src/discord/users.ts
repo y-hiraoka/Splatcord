@@ -1,7 +1,8 @@
 import axios from "axios";
 import { User, PartialGuild } from ".";
 import { ApiEndpoint } from "./constant";
-import { errorHandler } from "./Errors";
+import { errorHandler } from "./errors";
+import { UserImpl, PartialGuildImpl } from "./model";
 
 export class UserClient {
   private headers: any = {};
@@ -28,7 +29,7 @@ export class UserClient {
       const result = await axios.get<T>(url, {
         headers: this.headers,
       });
-  
+
       return result.data;
     } catch (error) {
       if (error.isAxiosError) throw errorHandler(error);
@@ -38,11 +39,13 @@ export class UserClient {
 
   /** Returns the user object of the requester's account. */
   getCurrentUser = async (): Promise<User> => {
-    return await this.get<User>(`${ApiEndpoint}/users/@me`);
+    const user = await this.get<User>(`${ApiEndpoint}/users/@me`);
+    return new UserImpl(user);
   }
 
   /** Returns a list of partial guild objects the current user is a member of. */
   getCurrentUserGuilds = async (): Promise<PartialGuild[]> => {
-    return await this.get<PartialGuild[]>(`${ApiEndpoint}/users/@me/guilds`);
+    const guilds = await this.get<PartialGuild[]>(`${ApiEndpoint}/users/@me/guilds`);
+    return guilds.map(guild => new PartialGuildImpl(guild));
   }
 }

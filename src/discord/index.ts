@@ -38,6 +38,12 @@ export interface User {
 
   /** the type of Nitro subscription on a user's account */
   premium_type?: number,
+
+  /** default user's avatar image url  */
+  defaultUserAvatarUrl: string;
+
+  /** returns user's avatar image url. if not exists, returns null. */
+  userAvatarUrl: (extenstion: "png" | "jpeg" | "webp" | "gif") => string | null;
 }
 
 export interface PartialGuild {
@@ -58,6 +64,8 @@ export interface PartialGuild {
 
   /** enabled guild features */
   features: string[],
+
+  guildIconUrl: (extension: "png" | "jpeg" | "webp") => string | null,
 }
 
 /**
@@ -409,7 +417,7 @@ export interface AccessTokenResponse {
 
   token_type: string;
 
-  guild?: Guild;
+  guild?: PartialGuild;
 
   webhook?: Webhook;
 }
@@ -454,7 +462,7 @@ export enum HttpResponseCodes {
 
 export { TokenClient } from "./token";
 export { UserClient } from "./users";
-export { WebhookClient } from "./Webhook";
+export { WebhookClient } from "./webhooks";
 export {
   BadRequestError,
   ForbiddenError,
@@ -462,4 +470,4 @@ export {
   TooManyRequestsError,
   UnauthorizedError,
   MethodNotAllowedError,
-} from "./Errors";
+} from "./errors";
