@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import { Container, Fab, FormControlLabel, Switch, List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, useMediaQuery } from '@material-ui/core';
-import { WeaponCategory } from '../splatoonSupport/weapons/MainWeapon';
+import { WeaponCategory } from '../splatoon';
 import SendIcon from '@material-ui/icons/Send';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import WeaponCheckedStateManager, { WeaponCheckedState } from '../logic/WeaponCheckedStateManager';
