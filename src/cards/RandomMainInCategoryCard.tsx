@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { sendMainWeaponsInCategory } from '../logic/SplatoonSupportOnDiscord';
 import { InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import cardStyles from "./CardStyles";
-import { WeaponCategory } from '../splatoonSupport/weapons/MainWeapon';
+import { WeaponCategory } from '../splatoon';
 import OpenSnackbarButton from '../components/OpenSnackbarButton';
 import { SnackbarProps } from "../components/CustomizedSnackbar";
 
