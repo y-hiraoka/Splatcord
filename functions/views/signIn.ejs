@@ -47,19 +47,21 @@
     document.addEventListener('DOMContentLoaded', async function () {
       try {
         const auth = await firebase.auth().signInWithCustomToken("<%- customToken %>");
-        await auth.user.updateProfile({
+        const updateProfile = auth.user.updateProfile({
           displayName: "<%- displayName %>",
           photoURL: "<%- photoURL %>",
         });
 
         const userdocRef = firebase.firestore().collection("users").doc(auth.user.uid);
-        await userdocRef.set({
+        const docRefSet = userdocRef.set({
           discordUserId: "<%- discordUserId %>",
-          accessToken: "<%- accessToken %>",
-          refreshToken: "<%- refreshToken %>",
+          discordAccessToken: "<%- discordAccessToken %>",
+          discordRefreshToken: "<%- discordRefreshToken %>",
           discriminator: "<%- discriminator %>",
         })
 
+        await updateProfile;
+        await docRefSet;
         window.location = "/";
       } catch (e) {
         console.error(e);

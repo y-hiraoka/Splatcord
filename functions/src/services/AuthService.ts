@@ -22,19 +22,17 @@ export class AuthService {
   signInWithDiscord = async (code: string): Promise<AuthUserModel> => {
 
     const token = await this.tokenClient.exchangeToken(code);
-    console.log(token);
 
     this.userClient.AccessToken = token.access_token;
     const user = await this.userClient.getCurrentUser();
-    console.log(user);
 
     const customToken = await admin.auth().createCustomToken(user.id);
 
     const photoURLpng = user.userAvatarUrl("png");
     const authUserModel = new AuthUserModel();
     authUserModel.customToken = customToken;
-    authUserModel.accessToken = token.access_token;
-    authUserModel.refreshToken = token.refresh_token;
+    authUserModel.discordAccessToken = token.access_token;
+    authUserModel.discordRefreshToken = token.refresh_token;
     authUserModel.discordUserId = user.id;
     authUserModel.displayName = user.username;
     authUserModel.photoURL = photoURLpng ? photoURLpng : user.defaultUserAvatarUrl;

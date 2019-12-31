@@ -3,7 +3,7 @@ export class AuthUserModel {
   displayName: string = "";
   photoURL: string = "";
   discordUserId: string = "";
-  accessToken: string = "";
-  refreshToken: string = "";
+  discordAccessToken: string = "";
+  discordRefreshToken: string = "";
   discriminator: string = "";
 }
