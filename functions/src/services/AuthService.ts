@@ -1,30 +1,18 @@
-import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { injectable, inject } from "tsyringe";
-import { TokenClient, UserClient } from "../discord";
+import { injectable } from "tsyringe";
 import { AuthUserModel } from "../models";
+import { DiscordClientService } from './DiscordClientService';
 
 @injectable()
 export class AuthService {
-  constructor(
-    @inject("TokenClient") private tokenClient: TokenClient,
-    @inject("UserClient") private userClient: UserClient,
-  ) {
-    const clientId: string = functions.config().discord.client_id;
-    const clientSecret: string = functions.config().discord.client_secret;
-    const redirectUri: string = functions.config().discord.redirect_uri;
-
-    tokenClient.clientId = clientId;
-    tokenClient.clientSecret = clientSecret;
-    tokenClient.redirectUri = redirectUri;
-  }
+  constructor(private discord: DiscordClientService) { }
 
   signInWithDiscord = async (code: string): Promise<AuthUserModel> => {
 
-    const token = await this.tokenClient.exchangeToken(code);
+    const token = await this.discord.TokenClient.exchangeToken(code);
 
-    this.userClient.AccessToken = token.access_token;
-    const user = await this.userClient.getCurrentUser();
+    this.discord.UserClient.AccessToken = token.access_token;
+    const user = await this.discord.UserClient.getCurrentUser();
 
     const customToken = await admin.auth().createCustomToken(user.id);
 
@@ -35,7 +23,7 @@ export class AuthService {
     authUserModel.discordRefreshToken = token.refresh_token;
     authUserModel.discordUserId = user.id;
     authUserModel.displayName = user.username;
-    authUserModel.photoURL = photoURLpng ? photoURLpng : user.defaultUserAvatarUrl;
+    authUserModel.photoURL = photoURLpng ?? user.defaultUserAvatarUrl;
     authUserModel.discriminator = user.discriminator;
 
     return authUserModel;
