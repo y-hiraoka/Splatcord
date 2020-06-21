@@ -107,9 +107,7 @@ export default function SelectablePage() {
 											edge="end"
 											color="secondary"
 											checked={allChecked}
-											onChange={onSelectAllClicked}>
-											all
-									</Switch>
+											onChange={onSelectAllClicked} />
 									}
 									label="全選択/全解除"
 									labelPlacement="start"

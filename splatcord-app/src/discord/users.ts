@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User, PartialGuild } from ".";
 import { ApiEndpoint } from "./constant";
-import { errorHandler } from "./errors";
+import { errorHandler } from "./Errors";
 import { UserImpl, PartialGuildImpl } from "./model";
 
 export class UserClient {

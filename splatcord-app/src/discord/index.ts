@@ -470,4 +470,4 @@ export {
   TooManyRequestsError,
   UnauthorizedError,
   MethodNotAllowedError,
-} from "./errors";
+} from "./Errors";

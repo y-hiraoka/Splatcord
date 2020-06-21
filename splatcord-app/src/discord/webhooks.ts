@@ -1,6 +1,6 @@
 import { WebhookExecutionObject, Webhook } from ".";
 import axios from "axios";
-import { errorHandler } from "./errors";
+import { errorHandler } from "./Errors";
 import { ApiEndpoint } from "./constant";
 
 /**

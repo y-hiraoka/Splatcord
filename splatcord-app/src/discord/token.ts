@@ -2,7 +2,7 @@ import axios from "axios";
 import { ApiEndpoint } from "./constant";
 import { URLSearchParams } from "url";
 import { AccessTokenResponse } from ".";
-import { errorHandler } from "./errors";
+import { errorHandler } from "./Errors";
 import { PartialGuildImpl } from "./model";
 
 /**
